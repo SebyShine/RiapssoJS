@@ -396,7 +396,7 @@ for (let i = 0; i < prezziMenu.length; i++) {
     }
 }
 
-console.log("Pizze Costose:",pizzeCostose);
+console.log("Pizze Costose:", pizzeCostose);
 
 // ✅ VERIFICA: pizzeCostose → 4 (le pizze da 12, 18, 15, 22)
 
@@ -464,9 +464,22 @@ presentaPizza("Capricciosa", 7);  // → "Capricciosa — Costo: €7 → Vendit
 //   console.log(calcolaFascia(4));    // → "Budget"
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 5.1)
-
-
-
+function calcolaFascia(prezzo) {
+    if (prezzo >= 18) {
+        return "Premium";
+    } else if (prezzo >= 13) {
+        return "Gourmet";
+    } else if (prezzo >= 8) {
+        return "Media";
+    } else if (prezzo >= 5) {
+        return "Economica"
+    } else {
+        return "Budget"
+    }
+}
+console.log("Premium", calcolaFascia(20));   // → "Premium"
+console.log("Media", calcolaFascia(10));   // → "Media"
+console.log("Budget", calcolaFascia(4));    // → "Budget"
 // ✅ VERIFICA: console mostra "Premium", "Media", "Budget"
 
 // ─────────────────────────────────────────────────────────
@@ -482,8 +495,11 @@ presentaPizza("Capricciosa", 7);  // → "Capricciosa — Costo: €7 → Vendit
 //   console.log(creaDescrizione("Margherita", "Pomodoro, mozzarella", 8));
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 5.2)
-
-
+function creaDescrizione(nome, ingredienti, prezzo) {
+    const fascia = calcolaFascia(prezzo);
+    return `🍕 ${nome} — Ingredienti: ${ingredienti} | Prezzo: €${prezzo} | Fascia: ${fascia}`;
+}
+console.log(creaDescrizione("Margherita", "Pomodoro, mozzarella", 8));
 
 // ✅ VERIFICA: "🍕 Margherita — Ingredienti: Pomodoro, mozzarella | Prezzo: €8 | Fascia: Media"
 
@@ -540,7 +556,13 @@ for (const pizza of pizzeEsempio) {
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 6.1)
 
-
+const nomiPizze = ["Margherita", "Diavola", "Patatine"];
+nomiPizze.push("Quattro Formaggi");
+console.log("Numero di pizze: " + nomiPizze.length);
+console.log("Seconda pizza: " + nomiPizze[1]);
+console.log("Lista prima di pop:  " + nomiPizze); // Aggiungo io:
+nomiPizze.pop();
+console.log("Lista dopo pop: " + nomiPizze);
 
 // ✅ VERIFICA: L'array finale ha 3 elementi (dopo il pop)
 
@@ -559,8 +581,11 @@ for (const pizza of pizzeEsempio) {
 // 3. Stampa nomiMaiuscoli
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 6.2)
-
-
+for (const pizza of nomiPizze) {
+    console.log("🍕", pizza, " è nel menu!");
+}
+const nomiMaiuscoli = nomiPizze.map(nome => nome.toUpperCase());
+console.log(nomiMaiuscoli);
 
 // ✅ VERIFICA: Vedi le 3 pizze con "🍕" e poi l'array in maiuscolo
 
@@ -630,8 +655,16 @@ console.log(nomeEstratto, prezzoEstratto);         // → "Napoletana" 9.5
 // 4. Stampa l'oggetto completo: console.log(miaPizza)
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 7.1)
-
-
+const miaPizza = {
+    nome: "Diavola",
+    ingredienti: "Pomodoro, mozzarella, salame piccante",
+    prezzo: 10.50,
+    disponibile: true
+};
+console.log("Stampo miaPizza:", miaPizza.nome);
+miaPizza.prezzo = 12.00;
+miaPizza.fascia = calcolaFascia(miaPizza.prezzo);
+console.log(miaPizza);
 
 // ✅ VERIFICA: L'oggetto ha 5 proprietà (nome, ingredienti, prezzo, disponibile, fascia)
 
@@ -655,8 +688,15 @@ console.log(nomeEstratto, prezzoEstratto);         // → "Napoletana" 9.5
 //    }
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 7.2)
-
-
+const menu = [
+    { nome: "Margherita", ingredienti: "Pomodoro, mozzarella", prezzo: 7 },
+    { nome: "Diavola", ingredienti: "Pomodoro, mozzarella, salame piccante", prezzo: 9 },
+    { nome: "Tartufo", ingredienti: "Crema di tartufo, mozzarella, funghi", prezzo: 16 }
+];
+for (const pizza of menu) {
+    const { nome, prezzo } = pizza;
+    console.log(nome + " — €" + prezzo);
+}
 
 // ✅ VERIFICA: Vedi 3 righe tipo "Margherita — €7"
 
@@ -713,8 +753,9 @@ console.log("Titolo attuale:", titoloEl.textContent); // → "Il Nostro Menu"
 //    in "#d35400" usando: elemento.style.color = "#d35400";
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 8.1)
-
-
+document.querySelector("#titolo-menu").textContent = "🍕 " + nomePizzeria;
+document.querySelector("#stat-totale").textContent = menu.length;
+document.querySelector("#stat-totale").style.color = "#d35400";
 
 // ✅ VERIFICA: Il titolo nella pagina è cambiato e il numero di pizze è visibile
 
@@ -735,8 +776,13 @@ console.log("Titolo attuale:", titoloEl.textContent); // → "Il Nostro Menu"
 //    Aggiungi anche la classe "msg-successo": elemento.classList.add("msg-successo")
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 8.2)
-
-
+const valoreNome = document.querySelector("#input-nome").value;
+const valorePrezzo = parseFloat(document.querySelector("#input-prezzo").value);
+console.log("Valore Nome:", valoreNome);
+console.log("Valore Prezzo:", valorePrezzo);
+document.querySelector("#messaggio").textContent = "Benvenuto nella Pizzeria!";
+document.querySelector("#messaggio").style.display = "block";
+document.querySelector("#messaggio").classList.add("msg-successo");
 
 // ✅ VERIFICA: Un messaggio verde "Benvenuto nella Pizzeria!" appare nella pagina
 
