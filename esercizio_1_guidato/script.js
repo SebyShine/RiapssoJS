@@ -857,8 +857,15 @@ const listaPizze = document.querySelector("#lista-pizze");
 //    c. Aggiungi il <li> alla lista con: lista.appendChild(li)
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 9.1)
-
-
+document.querySelector("#lista-pizze").innerHTML = "";
+for (const pizza of menu) {
+    const li = document.createElement("li");
+    li.innerHTML = '<div class="info-pizza">' +
+        '  <span class="nome-pizza">' + pizza.nome + '</span>' +
+        '  <span class="dettagli-pizza"> | ' + pizza.ingredienti + ' | €' + pizza.prezzo + '</span>' +
+        '</div>';
+    listaPizze.appendChild(li);
+}
 
 // ✅ VERIFICA: Le 3 pizze del menu appaiono nella pagina!
 
@@ -896,7 +903,39 @@ const listaPizze = document.querySelector("#lista-pizze");
 // Suggerimento: tutto il codice dei punti a-j va DENTRO la function() del click
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 9.2)
-
+document.querySelector("#btn-aggiungi").addEventListener("click", () => {
+    const leggiNome = document.querySelector("#input-nome").value;
+    const leggiIngredienti = document.querySelector("#input-ingredienti").value;
+    const leggiPrezzo = Number(document.querySelector("#input-prezzo").value);
+    const leggiCategoria = document.querySelector("#select-categoria").value;
+    if (leggiNome === "") {
+        alert("Inserisci un nome!");
+        return;   // esce dalla funzione
+    }
+    // Creo l'oggetto
+    const nuovaPizza = {
+        nome: leggiNome,
+        ingredienti: leggiIngredienti,
+        prezzo: leggiPrezzo,
+        categoria: leggiCategoria
+    };
+    menu.push(nuovaPizza);
+    const li = document.createElement("li");
+    // nell'HTML creo la CARD della pizza con i dati dell'input
+    li.innerHTML = '<div class="info-pizza">' +
+        '  <span class="nome-pizza">' + leggiNome + '</span>' +
+        '  <span class="dettagli-pizza"> | ' + leggiIngredienti + ' | €' + leggiPrezzo + '</span>' +
+        '</div>';
+    // seleziono lista-pizze e aggiungo la CARD appena fatta
+    document.querySelector("#lista-pizze").appendChild(li);
+    // resettiamo tutto:
+    document.querySelector("#input-nome").value = "";
+    document.querySelector("#input-ingredienti").value = "";
+    document.querySelector("#input-prezzo").value = "";
+    document.querySelector("#select-categoria").value = "";
+    // aggiorna il numero delle pizze
+    document.querySelector("#stat-totale").textContent = menu.length;
+});
 
 
 // ✅ VERIFICA: Compila il form, clicca "Aggiungi Pizza" → la pizza appare nella lista!
