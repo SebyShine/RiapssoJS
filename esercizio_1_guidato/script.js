@@ -63,8 +63,15 @@ console.log("Tipo di esempioPrezzo:", typeof esempioPrezzo);         // → "num
 // Poi stampa tutte e 4 con console.log()
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 1.1)
+const nomePizzeria = "La Pizza del Codice";
+const maxPizze = 15;
+let pizzeInMenu = 0;
+let pizzeriaAperta = true;
 
-
+console.log(nomePizzeria);
+console.log(maxPizze);
+console.log(pizzeInMenu);
+console.log(pizzeriaAperta);
 
 // ✅ VERIFICA: Apri la console (F12). Dovresti vedere:
 // "La Pizza del Codice"
@@ -79,8 +86,10 @@ console.log("Tipo di esempioPrezzo:", typeof esempioPrezzo);         // → "num
 // Usa questo formato: console.log("Tipo di nomePizzeria:", typeof nomePizzeria);
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 1.2)
-
-
+console.log("nomePizzeria è una:", typeof nomePizzeria);
+console.log("maxPizze è un:", typeof maxPizze);
+console.log("pizzeInMenu è un:", typeof pizzeInMenu);
+console.log("pizzeriaAperta è un:", typeof pizzeriaAperta);
 
 // ✅ VERIFICA: Dovresti vedere in console:
 // "Tipo di nomePizzeria: string"
@@ -105,8 +114,8 @@ console.log("Tipo di esempioPrezzo:", typeof esempioPrezzo);         // → "num
 // │   >  (maggiore)   <  (minore)   >=  <=                                  │
 // │   ⚠️ NON usare == (uguale debole), usa SEMPRE ===                       │
 // │                                                                          │
-// │ OPERATORI LOGICI — combinano condizioni booleane:                       │
-// │   && (AND: entrambe vere)   || (OR: almeno una vera)   ! (NOT: inverte)│
+// │ OPERATORI LOGICI — combinano condizioni booleane:                        │
+// │   && (AND: entrambe vere)   || (OR: almeno una vera)   ! (NOT: inverte)  │
 // └──────────────────────────────────────────────────────────────────────────┘
 
 // 💡 ESEMPIO:
@@ -138,8 +147,11 @@ console.log("Posso preparare:", possoPreparare);
 // 5. Stampa prezzoFinale e postiDisponibili
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 2.1)
-
-
+const prezzoBase = 8.50;
+const ricarico = 1.3;
+const prezzoFinale = prezzoBase * ricarico;
+const postiDisponibili = maxPizze - pizzeInMenu;
+console.log("Prezzo finale:", prezzoFinale, "Posti disponibili:", postiDisponibili);
 
 // ✅ VERIFICA: In console dovresti vedere:
 // prezzoFinale → 11.05
@@ -156,7 +168,11 @@ console.log("Posso preparare:", possoPreparare);
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 2.2)
 
-
+const eConveniente = prezzoFinale < 15;
+const haPostiMenu = postiDisponibili > 0;
+const puoAggiungere = eConveniente && haPostiMenu;
+const menuPieno = !haPostiMenu;
+console.log("èConveniente: ", eConveniente, "; haPostiMenu: ", haPostiMenu, "; puoAggiungere: ", puoAggiungere, "; menuPieno: ", menuPieno);
 
 // ✅ VERIFICA:
 // èConveniente → true (11.05 < 15)
@@ -216,8 +232,14 @@ if (prezzoPizzaEsempio >= 18) {
 //   → stampa "❌ Pizza rifiutata: dati incompleti"
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 3.1)
+let prezzoCandidata = 9.50;
+let categoriaCandidata = "Speciale";
 
-
+if (prezzoCandidata > 0 && categoriaCandidata !== "") {
+    console.log("✅ Pizza accettata nel menu!");
+} else {
+    console.log("❌ Pizza rifiutata: dati incompleti");
+}
 
 // ✅ VERIFICA: Dovresti vedere "✅ Pizza accettata nel menu!" (9.50 > 0 e "Speciale" !== "")
 
@@ -237,7 +259,19 @@ if (prezzoPizzaEsempio >= 18) {
 // Dopo tutti gli if, stampa: console.log("Fascia di prezzo:", fascia)
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 3.2)
-
+let prezzo = 14;
+let fascia = "";
+if (prezzo >= 18) {
+    fascia = "Premium";
+} else if (prezzo >= 13) {
+    fascia = "Gourmet";
+} else if (prezzo >= 8) {
+    fascia = "Media";
+} else if (prezzo >= 5) {
+    fascia = "Economica"
+} else {
+    fascia = "Budget"
+}
 
 
 // ✅ VERIFICA: Dovresti vedere "Fascia di prezzo: Gourmet" (14 >= 13)
@@ -257,8 +291,18 @@ if (prezzoPizzaEsempio >= 18) {
 // RICORDA: metti break; dopo ogni case!
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 3.3)
-
-
+let categoria = "Gourmet";
+switch (categoria) {
+    case "Classica": console.log("🍕 Le pizze della tradizione");
+        break;
+    case "Speciale": console.log("⭐ Creazioni dello chef");
+        break;
+    case "Gourmet": console.log("🏆 Ingredienti ricercati e di alta qualità");
+        break;
+    case "Stagionale": console.log("🌿 Ingredienti freschi di stagione");
+        break;
+    default: console.log("❓ Categoria sconosciuta");
+}
 
 // ✅ VERIFICA: Dovresti vedere "🏆 Ingredienti ricercati e di alta qualità"
 
@@ -321,7 +365,11 @@ console.log("Somma prezzi:", sommaPrezzi); // → 47
 // 4. ⚠️ NON dimenticare di incrementare: tavolo++;
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 4.1)
-
+let tavolo = 1;
+while (tavolo <= 4) {
+    console.log("Tavolo " + tavolo + " pronto");
+    tavolo++;
+}
 
 
 // ✅ VERIFICA: 4 righe in console "Tavolo 1 pronto" ... "Tavolo 4 pronto"
@@ -340,8 +388,15 @@ console.log("Somma prezzi:", sommaPrezzi); // → 47
 const prezziMenu = [5, 12, 8, 18, 6, 15, 9, 22];
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 4.2)
+let pizzeCostose = 0;
 
+for (let i = 0; i < prezziMenu.length; i++) {
+    if (prezziMenu[i] >= 10) {
+        pizzeCostose++;
+    }
+}
 
+console.log("Pizze Costose:",pizzeCostose);
 
 // ✅ VERIFICA: pizzeCostose → 4 (le pizze da 12, 18, 15, 22)
 
