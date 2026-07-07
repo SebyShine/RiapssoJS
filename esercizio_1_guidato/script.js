@@ -924,7 +924,7 @@ document.querySelector("#btn-aggiungi").addEventListener("click", () => {
     // nell'HTML creo la CARD della pizza con i dati dell'input
     li.innerHTML = '<div class="info-pizza">' +
         '  <span class="nome-pizza">' + leggiNome + '</span>' +
-        '  <span class="dettagli-pizza"> | ' + leggiIngredienti + ' | €' + leggiPrezzo + '</span>' +
+        '  <span class="dettagli-pizza"> | ' + leggiIngredienti + ' | €' + leggiPrezzo.toFixed(2) + '</span>' +
         '</div>';
     // seleziono lista-pizze e aggiungo la CARD appena fatta
     document.querySelector("#lista-pizze").appendChild(li);
@@ -966,7 +966,24 @@ document.querySelector("#btn-aggiungi").addEventListener("click", () => {
 // Poi usa un for...of su "risultati" per ricreare gli <li> (come Step 9.1)
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 9.3)
-
+const inputRicerca = document.querySelector("#input-ricerca");
+inputRicerca.addEventListener("input", (e) => {
+    const testo = e.target.value.toLowerCase();
+    const risultati = menu.filter(function (pizza) {
+        return pizza.nome.toLowerCase().includes(testo);
+    });
+    // Ricordarsi di selezionare la lista e fare attenzione all'"any"
+    const lista = document.querySelector("#lista-pizze");
+    lista.innerHTML = "";
+    for (const pizza of risultati) {
+        const li = document.createElement("li");
+        li.innerHTML = '<div class="info-pizza">' +
+            '  <span class="nome-pizza">' + pizza.nome + '</span>' +
+            '  <span class="dettagli-pizza"> | ' + pizza.ingredienti + ' | €' + pizza.prezzo.toFixed(2) + '</span>' +
+            '</div>';
+        lista.appendChild(li);
+    }
+});
 
 
 // ✅ VERIFICA: Scrivi nel campo ricerca → la lista si filtra in tempo reale!
@@ -1032,8 +1049,13 @@ console.log(descrizionePizza);
 //    console.log(pulisciNome("diavola"));           // → "Diavola"
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 10.1)
-
-
+function pulisciNome(nome) {
+    const nomePulito = nome.trim();
+    const nomeFormattato = nomePulito.charAt(0).toUpperCase() + nomePulito.slice(1).toLowerCase()
+    return nomeFormattato;
+}
+console.log(pulisciNome(" gfsdgrsg mARGHERITA  "));   // → "Margherita"
+console.log(pulisciNome("gfsdgfdsgdsdiavola"));           // → "Diavola"
 
 // ✅ VERIFICA: "Margherita" e "Diavola"
 
