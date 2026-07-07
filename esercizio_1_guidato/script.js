@@ -1090,8 +1090,26 @@ console.log(pulisciNome("gfsdgfdsgdsdiavola"));           // → "Diavola"
 //    Seleziona "#stat-piu-cara" e metti stats.piuCara come textContent
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 10.2)
-
-
+function calcolaStatistiche(menu) {
+    let sommaPrezzi = 0;
+    let maxPrezzo = 0;
+    let nomePiuCara = "";
+    for (const pizza of menu) {
+        sommaPrezzi += pizza.prezzo;
+        if (pizza.prezzo > maxPrezzo) {
+            maxPrezzo = pizza.prezzo;
+            nomePiuCara = pizza.nome;
+        }
+    }
+    return {
+        totale: menu.length,
+        sommaPrezzi: sommaPrezzi,
+        media: sommaPrezzi / menu.length,
+        piuCara: nomePiuCara,
+    }
+}
+const stats = calcolaStatistiche(menu);
+console.log(`📊 Menu: ${stats.totale} pizze | Media: €${stats.media.toFixed(2)} | Più cara: ${stats.piuCara}`);
 
 // ✅ VERIFICA: Le statistiche nella pagina si aggiornano!
 
@@ -1151,8 +1169,20 @@ console.log("Ultimo accesso:", ultimoAccesso); // → "25/02/2026"
 //    d. Stampa in console: "Salvate " + menu.length + " pizze"
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 11.1)
+const btnSalva = document.querySelector("#btn-salva");
 
+btnSalva.addEventListener("click", () => {
+    const stringaMenu = JSON.stringify(menu);
+    localStorage.setItem("menu-pizzeria", stringaMenu);
 
+    const messaggio = document.querySelector("#messaggio");
+    messaggio.textContent = "💾 Menu salvato!";
+    messaggio.classList.remove("msg-errore");
+    messaggio.classList.add("msg-successo");
+    messaggio.style.display = "block";
+
+    console.log("Salvate " + menu.length + " pizze");
+});
 
 // ✅ VERIFICA: Clicca "Salva" → appare il messaggio verde + log in console
 
