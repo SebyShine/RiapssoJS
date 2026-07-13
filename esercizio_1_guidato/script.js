@@ -864,6 +864,19 @@ for (const pizza of menu) {
         '  <span class="nome-pizza">' + pizza.nome + '</span>' +
         '  <span class="dettagli-pizza"> | ' + pizza.ingredienti + ' | €' + pizza.prezzo + '</span>' +
         '</div>';
+
+    // Aggiunta del bottone "Rimuovi" per ogni pizza
+    const btnRimuovi = document.createElement("button");
+    btnRimuovi.textContent = "❌";
+    btnRimuovi.classList.add("btn-danger");
+    btnRimuovi.addEventListener("click", function () {
+        const indice = menu.indexOf(pizza);
+        if (indice !== -1) menu.splice(indice, 1);
+        li.remove();
+        document.querySelector("#stat-totale").textContent = menu.length;
+    });
+    li.appendChild(btnRimuovi);
+
     listaPizze.appendChild(li);
 }
 
@@ -910,9 +923,9 @@ document.querySelector("#btn-aggiungi").addEventListener("click", () => {
     const leggiCategoria = document.querySelector("#select-categoria").value;
     if (leggiNome === "") {
         alert("Inserisci un nome!");
-        return;   // esce dalla funzione
+        return;
     }
-    // Creo l'oggetto
+
     const nuovaPizza = {
         nome: leggiNome,
         ingredienti: leggiIngredienti,
@@ -920,20 +933,34 @@ document.querySelector("#btn-aggiungi").addEventListener("click", () => {
         categoria: leggiCategoria
     };
     menu.push(nuovaPizza);
+
     const li = document.createElement("li");
-    // nell'HTML creo la CARD della pizza con i dati dell'input
     li.innerHTML = '<div class="info-pizza">' +
         '  <span class="nome-pizza">' + leggiNome + '</span>' +
         '  <span class="dettagli-pizza"> | ' + leggiIngredienti + ' | €' + leggiPrezzo.toFixed(2) + '</span>' +
         '</div>';
-    // seleziono lista-pizze e aggiungo la CARD appena fatta
+
+    // Bottone "Rimuovi"
+    const btnRimuovi = document.createElement("button");
+    btnRimuovi.textContent = "❌";
+    btnRimuovi.classList.add("btn-danger");
+    btnRimuovi.addEventListener("click", function () {
+        const indice = menu.indexOf(nuovaPizza); // Usiamo nuovaPizza qui
+        if (indice !== -1) menu.splice(indice, 1);
+        li.remove();
+        document.querySelector("#stat-totale").textContent = menu.length;
+    });
+    li.appendChild(btnRimuovi);
+
+
     document.querySelector("#lista-pizze").appendChild(li);
-    // resettiamo tutto:
+
+    // Reset input
     document.querySelector("#input-nome").value = "";
     document.querySelector("#input-ingredienti").value = "";
     document.querySelector("#input-prezzo").value = "";
     document.querySelector("#select-categoria").value = "";
-    // aggiorna il numero delle pizze
+
     document.querySelector("#stat-totale").textContent = menu.length;
 });
 
@@ -966,13 +993,14 @@ document.querySelector("#btn-aggiungi").addEventListener("click", () => {
 // Poi usa un for...of su "risultati" per ricreare gli <li> (come Step 9.1)
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 9.3)
+// 👇 CODICE AGGIORNATO (Step 9.3)
 const inputRicerca = document.querySelector("#input-ricerca");
 inputRicerca.addEventListener("input", (e) => {
     const testo = e.target.value.toLowerCase();
     const risultati = menu.filter(function (pizza) {
         return pizza.nome.toLowerCase().includes(testo);
     });
-    // Ricordarsi di selezionare la lista e fare attenzione all'"any"
+
     const lista = document.querySelector("#lista-pizze");
     lista.innerHTML = "";
     for (const pizza of risultati) {
@@ -981,6 +1009,19 @@ inputRicerca.addEventListener("input", (e) => {
             '  <span class="nome-pizza">' + pizza.nome + '</span>' +
             '  <span class="dettagli-pizza"> | ' + pizza.ingredienti + ' | €' + pizza.prezzo.toFixed(2) + '</span>' +
             '</div>';
+
+        // Botteone Rimuovi per ogni pizza filtrata
+        const btnRimuovi = document.createElement("button");
+        btnRimuovi.textContent = "❌";
+        btnRimuovi.classList.add("btn-danger");
+        btnRimuovi.addEventListener("click", function () {
+            const indice = menu.indexOf(pizza);
+            if (indice !== -1) menu.splice(indice, 1);
+            li.remove();
+            document.querySelector("#stat-totale").textContent = menu.length;
+        });
+        li.appendChild(btnRimuovi);
+
         lista.appendChild(li);
     }
 });
@@ -1278,7 +1319,14 @@ carica.addEventListener("click", () => {
 // - Mostra un messaggio di conferma
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 12.1)
-
+const resetMenu = document.querySelector("#btn-reset");
+resetMenu.addEventListener("click", () => {
+    menu.length = 0
+    menu.innerHTML = "";
+    stats = 0;
+    localStorage.removeItem("menu-pizzeria")
+    console.log("Menu Resettato");
+})
 
 
 // ─────────────────────────────────────────────────────────
@@ -1305,7 +1353,7 @@ carica.addEventListener("click", () => {
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 12.2)
 
-
+//   IL CODICE PER IL BOTTONE RIMUOVI È GIÀ PRESENTE NEGLI STEP 9.1, 9.2 E 9.3, NON PIU PRESENTE QUI.
 
 // ✅ VERIFICA: Se sei arrivato qui e tutto funziona, hai completato l'esercizio guidato!
 // 🎯 Ora passa all'Esercizio 2 per verificare di saper fare tutto SENZA guida!
