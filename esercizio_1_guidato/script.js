@@ -1205,7 +1205,6 @@ btnSalva.addEventListener("click", () => {
 //           for (const pizza of datiCaricati) {
 //               menu.push(pizza);
 //           }
-//
 //           // Ri-renderizza la lista (svuota la <ul> e ricrea gli <li>)
 //           const lista = document.querySelector("#lista-pizze");
 //           lista.innerHTML = "";
@@ -1217,7 +1216,6 @@ btnSalva.addEventListener("click", () => {
 //                   '</div>';
 //               lista.appendChild(li);
 //           }
-//
 //           // Aggiorna le statistiche
 //           document.querySelector("#stat-totale").textContent = menu.length;
 //
@@ -1229,8 +1227,33 @@ btnSalva.addEventListener("click", () => {
 //       }
 
 // 👇 SCRIVI QUI IL TUO CODICE (Step 11.2)
-
-
+const carica = document.querySelector("#btn-carica");
+carica.addEventListener("click", () => {
+    const salvati = localStorage.getItem("menu-pizzeria")
+    messaggio.textContent = "📂 Menu caricato!";
+    if (salvati !== null) {
+        menu.innerHTML = "";
+        menu.length = 0;
+        const datiCaricati = JSON.parse(salvati);
+        for (const pizza of datiCaricati) {
+            menu.push(pizza);
+        }
+        const lista = document.querySelector("#lista-pizze");
+        lista.innerHTML = "";
+        for (const pizza of menu) {
+            const li = document.createElement("li");
+            li.innerHTML = '<div class="info-pizza">' +
+                '<span class="nome-pizza">' + pizza.nome + '</span>' +
+                '<span class="dettagli-pizza"> | ' + pizza.ingredienti + ' | €' + pizza.prezzo + '</span>' +
+                '</div>';
+            lista.appendChild(li);
+        }
+        document.querySelector("#stat-totale").textContent = menu.length;
+        console.log("Caricate " + menu.length + " pizze");
+    } else {
+        alert("Nessun salvataggio trovato!");
+    }
+});
 
 // ✅ VERIFICA: Clicca "Salva", ricarica la pagina, clicca "Carica" → le pizze riappaiono!
 
